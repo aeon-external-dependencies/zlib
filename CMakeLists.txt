@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4.4)
+cmake_minimum_required(VERSION 3.1.0)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 project(zlib C)
@@ -188,6 +188,16 @@ add_library(zlibstatic STATIC ${ZLIB_SRCS} ${ZLIB_ASMS} ${ZLIB_PUBLIC_HDRS} ${ZL
 set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 set_target_properties(zlib PROPERTIES SOVERSION 1)
 
+target_include_directories(zlib
+    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_include_directories(zlibstatic
+    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 if(NOT CYGWIN)
     # This property causes shared libraries on Linux to have the full version
     # encoded into their final filename.  We disable this on Cygwin because
@@ -230,20 +240,27 @@ endif()
 # Example binaries
 #============================================================================
 
-add_executable(example test/example.c)
-target_link_libraries(example zlib)
-add_test(example example)
+#add_executable(example test/example.c)
+#target_link_libraries(example zlib)
+#add_test(example example)
+#set_target_properties(example PROPERTIES FOLDER "External/zlib/tools")
 
-add_executable(minigzip test/minigzip.c)
-target_link_libraries(minigzip zlib)
+#add_executable(minigzip test/minigzip.c)
+#target_link_libraries(minigzip zlib)
+#set_target_properties(minigzip PROPERTIES FOLDER "External/zlib/tools")
 
-if(HAVE_OFF64_T)
-    add_executable(example64 test/example.c)
-    target_link_libraries(example64 zlib)
-    set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
-    add_test(example64 example64)
+#if(HAVE_OFF64_T)
+#    add_executable(example64 test/example.c)
+#    target_link_libraries(example64 zlib)
+#    set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
+#    set_target_properties(example64 PROPERTIES FOLDER "External/zlib/tests")
+#    add_test(example64 example64)
 
-    add_executable(minigzip64 test/minigzip.c)
-    target_link_libraries(minigzip64 zlib)
-    set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
-endif()
+#    add_executable(minigzip64 test/minigzip.c)
+#    target_link_libraries(minigzip64 zlib)
+#    set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
+#    set_target_properties(minigzip64 PROPERTIES FOLDER "External/zlib/tools")
+#endif()
+
+set_target_properties(zlib PROPERTIES FOLDER "External/zlib")
+set_target_properties(zlibstatic PROPERTIES FOLDER "External/zlib")

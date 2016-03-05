@@ -97,7 +97,7 @@ set(ZLIB_PUBLIC_HDRS
 set(ZLIB_PRIVATE_HDRS
     crc32.h
     deflate.h
-    gzguts.h
+    #gzguts.h
     inffast.h
     inffixed.h
     inflate.h
@@ -110,10 +110,10 @@ set(ZLIB_SRCS
     compress.c
     crc32.c
     deflate.c
-    gzclose.c
-    gzlib.c
-    gzread.c
-    gzwrite.c
+    #gzclose.c
+    #gzlib.c
+    #gzread.c
+    #gzwrite.c
     inflate.c
     infback.c
     inftrees.c

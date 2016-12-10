@@ -264,3 +264,23 @@ endif()
 
 #set_target_properties(zlib PROPERTIES FOLDER "External/zlib")
 set_target_properties(zlibstatic PROPERTIES FOLDER "External/zlib")
+
+install(
+    TARGETS zlibstatic
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+install(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
+
+install(
+    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
+
